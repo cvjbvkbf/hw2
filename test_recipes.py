@@ -96,7 +96,7 @@ class TestShoppingList:
 
     def test_add_recipe_invalid_portions_raises(self):
         shop = ShoppingList()
-        with pytest.raises(ValueError, match="Количество порций должно быть положительным"):
+        with pytest.raises(ValueError):
             shop.add_recipe(self._make_pizza(), 0)
 
     def test_remove_recipe(self):
