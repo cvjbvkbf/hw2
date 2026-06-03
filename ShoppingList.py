@@ -1,4 +1,5 @@
 from Recipe import Recipe
+from Ingredient import Ingredient
 
 class ShoppingList:
     
@@ -13,12 +14,23 @@ class ShoppingList:
             self._items.append((ingredient, recipe.title))
             
     def remove_recipe(self, title: str):
-        for element in self._items[:]:
+        for element in self._items:
             if element[1] == title:
                 self._items.remove(element)
-    
-    def get_list(self) -> list:
-        pass
+
+    def get_list(self):
+        totals = {}
+        for ingredient, title in self._items:
+            element = (ingredient.name, ingredient.unit)
+            if element in totals:
+                totals[element] += ingredient.quantity
+            else:
+                totals[element] = ingredient.quantity
+        result = []
+        for (name, unit), quantity in totals.items():
+            result.append(Ingredient(name, quantity, unit))
+        result.sort()
+        return result
     
     def __add__(self, other: "ShoppingList"):
         united_items = ShoppingList()
